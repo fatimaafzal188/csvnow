@@ -40,6 +40,57 @@
     </div>
   </section>
 
+  <!-- UPLOAD AREA -->
+  <section class="upload-section" id="upload">
+    <div class="section-label">Start here</div>
+    <h2>Upload your CSV</h2>
+    <p class="section-sub">Drag and drop your file — everything happens instantly in your browser.</p>
+
+    <div class="upload-box" id="upload-box">
+      <input type="file" id="csv-input" accept=".csv" hidden />
+      <div class="upload-icon">📂</div>
+      <p class="upload-title">Drop your CSV file here</p>
+      <p class="upload-hint">or</p>
+      <button class="upload-btn" onclick="document.getElementById('csv-input').click()">Browse file</button>
+      <p class="upload-limit">Free plan · up to 5 MB · .csv files only</p>
+    </div>
+
+    <!-- FILE INFO BAR (hidden until file loaded) -->
+    <div class="file-info-bar" id="file-info-bar" style="display:none">
+      <div class="file-info-item">
+        <span class="file-info-label">File</span>
+        <span class="file-info-value" id="info-filename">—</span>
+      </div>
+      <div class="file-info-divider"></div>
+      <div class="file-info-item">
+        <span class="file-info-label">Size</span>
+        <span class="file-info-value" id="info-size">—</span>
+      </div>
+      <div class="file-info-divider"></div>
+      <div class="file-info-item">
+        <span class="file-info-label">Rows</span>
+        <span class="file-info-value" id="info-rows">—</span>
+      </div>
+      <div class="file-info-divider"></div>
+      <div class="file-info-item">
+        <span class="file-info-label">Columns</span>
+        <span class="file-info-value" id="info-cols">—</span>
+      </div>
+      <button class="reset-btn" onclick="resetUpload()">✕ Remove file</button>
+    </div>
+
+    <!-- PREVIEW TABLE (hidden until file loaded) -->
+    <div class="preview-wrap" id="preview-wrap" style="display:none">
+      <div class="preview-header">
+        <span class="preview-title">Preview — first 10 rows</span>
+      </div>
+      <div class="table-scroll">
+        <table class="preview-table" id="preview-table"></table>
+      </div>
+    </div>
+
+  </section>
+
   <!-- TOOLS GRID -->
   <section class="tools-section" id="tools">
     <div class="section-label">Everything in one place</div>
@@ -49,34 +100,31 @@
     <div class="tools-category">
       <div class="category-title">Convert</div>
       <div class="tools-grid">
-        <div class="tool-card"><div class="tool-icon">⇄</div><div class="tool-name">CSV to Excel</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">{ }</div><div class="tool-name">CSV to JSON</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">▦</div><div class="tool-name">CSV to SQL</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">&lt;/&gt;</div><div class="tool-name">CSV to XML</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">◻</div><div class="tool-name">CSV to HTML</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">#</div><div class="tool-name">CSV to Markdown</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">—</div><div class="tool-name">CSV to YAML</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">⬡</div><div class="tool-name">CSV to Parquet</div><div class="tool-badge free">Free · 5/day</div></div>
-        <div class="tool-card"><div class="tool-icon">$</div><div class="tool-name">CSV to QBO/OFX</div><div class="tool-badge free">Free · 50 rows</div></div>
-        <div class="tool-card"><div class="tool-icon">↙</div><div class="tool-name">Excel to CSV</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">↙</div><div class="tool-name">JSON to CSV</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">⊕</div><div class="tool-name">Merge CSVs</div><div class="tool-badge free">Free · 5 files</div></div>
-      </div>
-    </div>
-
+       <div class="tool-card" onclick="convertToExcel()"><div class="tool-icon">⇄</div><div class="tool-name">CSV to Excel</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="convertToJSON()"><div class="tool-icon">{ }</div><div class="tool-name">CSV to JSON</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="convertToSQL()"><div class="tool-icon">▦</div><div class="tool-name">CSV to SQL</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="convertToXML()"><div class="tool-icon">&lt;/&gt;</div><div class="tool-name">CSV to XML</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="convertToHTML()"><div class="tool-icon">◻</div><div class="tool-name">CSV to HTML</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="convertToMarkdown()"><div class="tool-icon">#</div><div class="tool-name">CSV to Markdown</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="convertToYAML()"><div class="tool-icon">—</div><div class="tool-name">CSV to YAML</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="alert('CSV to Parquet requires Pro — coming soon!')"><div class="tool-icon">⬡</div><div class="tool-name">CSV to Parquet</div><div class="tool-badge free">Free · 5/day</div></div>
+        <div class="tool-card" onclick="alert('CSV to QBO/OFX — coming soon!')"><div class="tool-icon">$</div><div class="tool-name">CSV to QBO/OFX</div><div class="tool-badge free">Free · 50 rows</div></div>
+        <div class="tool-card" onclick="convertExcelToCSV()"><div class="tool-icon">↙</div><div class="tool-name">Excel to CSV</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="convertJSONToCSV()"><div class="tool-icon">↙</div><div class="tool-name">JSON to CSV</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="mergeCSVs()"><div class="tool-icon">⊕</div><div class="tool-name">Merge CSVs</div><div class="tool-badge free">Free · 5 files</div></div>
     <div class="tools-category">
       <div class="category-title">Clean & Fix</div>
       <div class="tools-grid">
-        <div class="tool-card"><div class="tool-icon">⊘</div><div class="tool-name">Remove Duplicates</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">␣</div><div class="tool-name">Trim Whitespace</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">▣</div><div class="tool-name">Fill Empty Cells</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">✦</div><div class="tool-name">Fix Encoding</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">Aa</div><div class="tool-name">Standardise Case</div><div class="tool-badge free">Free</div></div>
-        <div class="tool-card"><div class="tool-icon">📅</div><div class="tool-name">Fix Date Formats</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">✕</div><div class="tool-name">Remove Columns</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">⇅</div><div class="tool-name">Reorder Columns</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">⊟</div><div class="tool-name">Filter Rows</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">↺</div><div class="tool-name">Find & Replace</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="removeDuplicates()"><div class="tool-icon">⊘</div><div class="tool-name">Remove Duplicates</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="trimWhitespace()"><div class="tool-icon">␣</div><div class="tool-name">Trim Whitespace</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="fillEmptyCells()"><div class="tool-icon">▣</div><div class="tool-name">Fill Empty Cells</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="fixEncoding()"><div class="tool-icon">✦</div><div class="tool-name">Fix Encoding</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="standardiseCase()"><div class="tool-icon">Aa</div><div class="tool-name">Standardise Case</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="alert('Fix Date Formats is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">📅</div><div class="tool-name">Fix Date Formats</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Remove Columns is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">✕</div><div class="tool-name">Remove Columns</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Reorder Columns is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">⇅</div><div class="tool-name">Reorder Columns</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Filter Rows is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">⊟</div><div class="tool-name">Filter Rows</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Find and Replace is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">↺</div><div class="tool-name">Find & Replace</div><div class="tool-badge pro">Pro</div></div>
       </div>
     </div>
 
@@ -242,6 +290,8 @@
     </div>
   </footer>
 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
