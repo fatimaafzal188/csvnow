@@ -112,6 +112,7 @@
         <div class="tool-card" onclick="convertExcelToCSV()"><div class="tool-icon">↙</div><div class="tool-name">Excel to CSV</div><div class="tool-badge free">Free</div></div>
         <div class="tool-card" onclick="convertJSONToCSV()"><div class="tool-icon">↙</div><div class="tool-name">JSON to CSV</div><div class="tool-badge free">Free</div></div>
         <div class="tool-card" onclick="mergeCSVs()"><div class="tool-icon">⊕</div><div class="tool-name">Merge CSVs</div><div class="tool-badge free">Free · 5 files</div></div>
+        <div class="tool-card" onclick="splitCSV()"><div class="tool-icon">✂</div><div class="tool-name">Split CSV</div><div class="tool-badge free">Free</div></div>
     <div class="tools-category">
       <div class="category-title">Clean & Fix</div>
       <div class="tools-grid">
@@ -131,13 +132,14 @@
     <div class="tools-category">
       <div class="category-title">AI Tools</div>
       <div class="tools-grid">
-        <div class="tool-card highlight"><div class="tool-icon">⚡</div><div class="tool-name">CSV Pulse</div><div class="tool-badge free">Free · Unlimited</div></div>
-        <div class="tool-card highlight"><div class="tool-icon">✔</div><div class="tool-name">Compatibility Checker</div><div class="tool-badge free">Free · Unlimited</div></div>
-        <div class="tool-card"><div class="tool-icon">🔧</div><div class="tool-name">Format Fixer</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">🏷</div><div class="tool-name">Column Namer</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">📝</div><div class="tool-name">Summary Writer</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">≈</div><div class="tool-name">Smart Dedupe</div><div class="tool-badge pro">Pro</div></div>
-        <div class="tool-card"><div class="tool-icon">◈</div><div class="tool-name">Outlier Detector</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card highlight" onclick="csvPulse()"><div class="tool-icon">⚡</div><div class="tool-name">CSV Pulse</div><div class="tool-badge free">Free · Unlimited</div></div>
+        <div class="tool-card highlight" onclick="compatibilityChecker()"><div class="tool-icon">✔</div><div class="tool-name">Compatibility Checker</div><div class="tool-badge free">Free · Unlimited</div></div>
+        <div class="tool-card" onclick="qualityScore()"><div class="tool-icon">◎</div><div class="tool-name">Quality Score</div><div class="tool-badge free">Free</div></div>
+        <div class="tool-card" onclick="alert('Format Fixer is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">🔧</div><div class="tool-name">Format Fixer</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Column Namer is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">🏷</div><div class="tool-name">Column Namer</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Summary Writer is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">📝</div><div class="tool-name">Summary Writer</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Smart Dedupe is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">≈</div><div class="tool-name">Smart Dedupe</div><div class="tool-badge pro">Pro</div></div>
+        <div class="tool-card" onclick="alert('Outlier Detector is a Pro feature. Upgrade to unlock.')"><div class="tool-icon">◈</div><div class="tool-name">Outlier Detector</div><div class="tool-badge pro">Pro</div></div>
       </div>
     </div>
   </section>
@@ -292,6 +294,21 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <!-- SUGGESTION BUTTON -->
+  <div class="suggest-btn" onclick="openSuggest()">💡</div>
+
+  <div class="suggest-modal" id="suggest-modal">
+    <div class="suggest-box">
+      <div class="suggest-header">
+        <span>Suggest a Feature</span>
+        <button onclick="closeSuggest()">✕</button>
+      </div>
+      <p class="suggest-sub">What would you like us to add?</p>
+      <textarea id="suggest-text" placeholder="I would love a tool that..."></textarea>
+      <input id="suggest-email" type="email" placeholder="Your email (optional)" />
+      <button class="suggest-submit" onclick="submitSuggestion()">Send Suggestion</button>
+    </div>
+  </div>
   <script src="js/main.js"></script>
 </body>
 </html>

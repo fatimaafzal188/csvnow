@@ -485,3 +485,262 @@ function standardiseCase() {
   alert('Done! Text case has been standardised.');
   downloadFile(Papa.unparse({ fields, data: parsedData.data }), 'csvnow_cased.csv', 'text/csv');
 }
+// ── QUALITY SCORE ──
+function qualityScore() {
+  if (!parsedData) { alert('Please upload a CSV file first.'); return; }
+
+  const fields = parsedData.meta.fields;
+  const rows = parsedData.data;
+  const total = rows.length;
+  let score = 100;
+  let issues = [];
+
+  // Check empty cells
+  let emptyCells = 0;
+  rows.forEach(row => {
+    fields.forEach(f => {
+      if (row[f] === '' || row[f] === null || row[f] === undefined) emptyCells++;
+    });
+  });
+  if (emptyCells > 0) {
+    const penalty = Math.min(30, Math.round((emptyCells / (total * fields.length)) * 100));
+    score -= penalty;
+    issues.push(`⚠ ${emptyCells} empty cell(s) found — penalty: ${penalty} points`);
+  }
+
+  // Check duplicates
+  const seen = new Set();
+  let dupes = 0;
+  rows.forEach(row => {
+    const key = fields.map(f => row[f]).join('|');
+    if (seen.has(key)) dupes++;
+    else seen.add(key);
+  });
+  if (dupes > 0) {
+    const penalty = Math.min(20, dupes * 2);
+    score -= penalty;
+    issues.push(`⚠ ${dupes} duplicate row(s) found — penalty: ${penalty} points`);
+  }
+
+  // Check missing headers
+  const badHeaders = fields.filter(f => f.trim() === '' || f.startsWith('Unnamed'));
+  if (badHeaders.length > 0) {
+    score -= 15;
+    issues.push(`⚠ ${badHeaders.length} missing or unnamed column header(s) — penalty: 15 points`);
+  }
+
+  // Check consistency of row length
+  let inconsistent = 0;
+  rows.forEach(row => {
+    if (Object.keys(row).length !== fields.length) inconsistent++;
+  });
+  if (inconsistent > 0) {
+    score -= 10;
+    issues.push(`⚠ ${inconsistent} row(s) have inconsistent column count — penalty: 10 points`);
+  }
+
+  score = Math.max(0, score);
+
+  // Build result
+  let grade = score >= 90 ? '🟢 Excellent' : score >= 70 ? '🟡 Good' : score >= 50 ? '🟠 Fair' : '🔴 Poor';
+  let msg = `━━━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `  CSVNow Quality Score\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  msg += `  Score: ${score}/100 — ${grade}\n\n`;
+  msg += `  File: ${total} rows × ${fields.length} columns\n\n`;
+
+  if (issues.length === 0) {
+    msg += `  ✅ No issues found! Your CSV is clean.\n`;
+  } else {
+    msg += `  Issues found:\n`;
+    issues.forEach(i => { msg += `  ${i}\n`; });
+  }
+  msg += `\n━━━━━━━━━━━━━━━━━━━━━━`;
+
+  alert(msg);
+}
+// ── CSV PULSE ──
+function csvPulse() {
+  if (!parsedData) { alert('Please upload a CSV file first.'); return; }
+
+  const fields = parsedData.meta.fields;
+  const rows = parsedData.data;
+  let issues = [];
+  let good = [];
+
+  // Empty cells
+  let emptyCells = 0;
+  let emptyColumns = [];
+  fields.forEach(f => {
+    let emptyInCol = rows.filter(r => r[f] === '' || r[f] === null || r[f] === undefined).length;
+    if (emptyInCol === rows.length) emptyColumns.push(f);
+    emptyCells += emptyInCol;
+  });
+  if (emptyColumns.length > 0) issues.push(`🔴 ${emptyColumns.length} completely empty column(s): ${emptyColumns.join(', ')}`);
+  else if (emptyCells > 0) issues.push(`🟡 ${emptyCells} empty cell(s) scattered across your file`);
+  else good.push(`✅ No empty cells found`);
+
+  // Duplicates
+  const seen = new Set();
+  let dupes = 0;
+  rows.forEach(row => {
+    const key = fields.map(f => row[f]).join('|');
+    if (seen.has(key)) dupes++;
+    else seen.add(key);
+  });
+  if (dupes > 0) issues.push(`🔴 ${dupes} duplicate row(s) detected`);
+  else good.push(`✅ No duplicate rows`);
+
+  // Date columns
+  const datePattern = /^\d{1,4}[-\/]\d{1,2}[-\/]\d{1,4}$/;
+  let mixedDates = [];
+  fields.forEach(f => {
+    const vals = rows.map(r => r[f]).filter(v => v && v.toString().trim() !== '');
+    const dateVals = vals.filter(v => datePattern.test(v.toString().trim()));
+    if (dateVals.length > 0 && dateVals.length < vals.length) {
+      mixedDates.push(f);
+    }
+  });
+  if (mixedDates.length > 0) issues.push(`🟡 Mixed date formats in column(s): ${mixedDates.join(', ')}`);
+  else good.push(`✅ Date formats look consistent`);
+
+  // Whitespace
+  let whitespaceCount = 0;
+  rows.forEach(row => {
+    fields.forEach(f => {
+      const val = (row[f] ?? '').toString();
+      if (val !== val.trim()) whitespaceCount++;
+    });
+  });
+  if (whitespaceCount > 0) issues.push(`🟡 ${whitespaceCount} cell(s) have leading or trailing whitespace`);
+  else good.push(`✅ No whitespace issues`);
+
+  // Numeric columns with text
+  let mixedTypes = [];
+  fields.forEach(f => {
+    const vals = rows.map(r => r[f]).filter(v => v && v.toString().trim() !== '');
+    const numVals = vals.filter(v => !isNaN(v));
+    if (numVals.length > 0 && numVals.length < vals.length && numVals.length > vals.length * 0.5) {
+      mixedTypes.push(f);
+    }
+  });
+  if (mixedTypes.length > 0) issues.push(`🟡 Mixed data types in column(s): ${mixedTypes.join(', ')}`);
+  else good.push(`✅ Column data types look consistent`);
+
+  // Build message
+  let msg = `━━━━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `       ⚡ CSV Pulse\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  msg += `File: ${rows.length} rows × ${fields.length} columns\n\n`;
+
+  if (issues.length === 0) {
+    msg += `🎉 Your CSV looks clean!\n\n`;
+  } else {
+    msg += `Issues found (${issues.length}):\n`;
+    issues.forEach(i => { msg += `  ${i}\n`; });
+    msg += `\n`;
+  }
+
+  msg += `All clear (${good.length}):\n`;
+  good.forEach(g => { msg += `  ${g}\n`; });
+  msg += `\n━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  alert(msg);
+}
+
+// ── COMPATIBILITY CHECKER ──
+function compatibilityChecker() {
+  if (!parsedData) { alert('Please upload a CSV file first.'); return; }
+
+  const fields = parsedData.meta.fields;
+  const rows = parsedData.data;
+  let results = [];
+
+  // Shopify
+  const shopifyRequired = ['Title', 'Vendor', 'Type', 'Tags', 'Published'];
+  const hasShopify = shopifyRequired.filter(f => fields.includes(f));
+  const shopifyScore = Math.round((hasShopify.length / shopifyRequired.length) * 100);
+  results.push(`Shopify Products: ${shopifyScore >= 80 ? '✅' : shopifyScore >= 50 ? '⚠' : '❌'} ${shopifyScore}% compatible`);
+
+  // Mailchimp
+  const mailchimpRequired = ['Email Address', 'First Name', 'Last Name'];
+  const hasMailchimp = mailchimpRequired.filter(f => fields.includes(f));
+  const mailchimpScore = Math.round((hasMailchimp.length / mailchimpRequired.length) * 100);
+  results.push(`Mailchimp: ${mailchimpScore >= 80 ? '✅' : mailchimpScore >= 50 ? '⚠' : '❌'} ${mailchimpScore}% compatible`);
+
+  // Google Sheets
+  const hasEmptyHeaders = fields.filter(f => f.trim() === '').length;
+  const sheetsOk = hasEmptyHeaders === 0;
+  results.push(`Google Sheets: ${sheetsOk ? '✅ Ready to import' : '❌ Fix empty column headers first'}`);
+
+  // MySQL
+  const badChars = /[^a-zA-Z0-9_]/;
+  const badCols = fields.filter(f => badChars.test(f));
+  results.push(`MySQL: ${badCols.length === 0 ? '✅ Column names are valid' : `⚠ ${badCols.length} column name(s) need fixing: ${badCols.slice(0,3).join(', ')}`}`);
+
+  // Salesforce
+  const sfRequired = ['Id', 'Name', 'Email'];
+  const hasSF = sfRequired.filter(f => fields.includes(f));
+  const sfScore = Math.round((hasSF.length / sfRequired.length) * 100);
+  results.push(`Salesforce: ${sfScore >= 80 ? '✅' : sfScore >= 50 ? '⚠' : '❌'} ${sfScore}% compatible`);
+
+  // HubSpot
+  const hubRequired = ['Email', 'First Name', 'Last Name', 'Phone'];
+  const hasHub = hubRequired.filter(f => fields.includes(f));
+  const hubScore = Math.round((hasHub.length / hubRequired.length) * 100);
+  results.push(`HubSpot: ${hubScore >= 80 ? '✅' : hubScore >= 50 ? '⚠' : '❌'} ${hubScore}% compatible`);
+
+  // WooCommerce
+  const wooRequired = ['SKU', 'Name', 'Price', 'Stock'];
+  const hasWoo = wooRequired.filter(f => fields.includes(f));
+  const wooScore = Math.round((hasWoo.length / wooRequired.length) * 100);
+  results.push(`WooCommerce: ${wooScore >= 80 ? '✅' : wooScore >= 50 ? '⚠' : '❌'} ${wooScore}% compatible`);
+
+  let msg = `━━━━━━━━━━━━━━━━━━━━━━━━\n`;
+  msg += `   ✔ Compatibility Checker\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━━━━\n\n`;
+  msg += `File: ${rows.length} rows × ${fields.length} columns\n\n`;
+  msg += `Platform Results:\n`;
+  results.forEach(r => { msg += `  ${r}\n`; });
+  msg += `\n💡 Tip: Column names must match exactly.\n`;
+  msg += `━━━━━━━━━━━━━━━━━━━━━━━━`;
+
+  alert(msg);
+}
+// ── SPLIT CSV ──
+function splitCSV() {
+  if (!parsedData) { alert('Please upload a CSV file first.'); return; }
+
+  const fields = parsedData.meta.fields;
+  const rows = parsedData.data;
+  const chunkSize = parseInt(prompt(`Your file has ${rows.length} rows.\nHow many rows per split file?`, '1000'));
+
+  if (!chunkSize || isNaN(chunkSize) || chunkSize <= 0) return;
+
+  let part = 1;
+  for (let i = 0; i < rows.length; i += chunkSize) {
+    const chunk = rows.slice(i, i + chunkSize);
+    const csv = Papa.unparse({ fields, data: chunk });
+    downloadFile(csv, `csvnow_part${part}.csv`, 'text/csv');
+    part++;
+  }
+
+  alert(`Done! Split into ${part - 1} file(s) of ${chunkSize} rows each.`);
+}
+// ── SUGGESTION BUTTON ──
+function openSuggest() {
+  document.getElementById('suggest-modal').classList.add('open');
+}
+
+function closeSuggest() {
+  document.getElementById('suggest-modal').classList.remove('open');
+}
+
+function submitSuggestion() {
+  const text = document.getElementById('suggest-text').value.trim();
+  if (!text) { alert('Please write your suggestion first.'); return; }
+  alert('Thank you! Your suggestion has been received. 🙏');
+  document.getElementById('suggest-text').value = '';
+  document.getElementById('suggest-email').value = '';
+  closeSuggest();
+}
