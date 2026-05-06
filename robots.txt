@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://csvnow.vercel.app/sitemap.xml
