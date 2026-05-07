@@ -524,3 +524,35 @@ footer .nav-logo span { color: white; }
   transition: background .2s;
 }
 .suggest-submit:hover { background: var(--teal-dark); }
+
+/* ── DOWNLOAD BAR ── */
+.download-bar {
+  position: fixed; bottom: 90px; left: 50%;
+  transform: translateX(-50%);
+  background: white; border: 1.5px solid var(--teal);
+  border-radius: var(--radius); padding: 16px 24px;
+  display: flex; align-items: center; gap: 16px;
+  box-shadow: 0 8px 32px rgba(13,148,136,0.2);
+  z-index: 998; min-width: 340px;
+  animation: slideUp 0.3s ease;
+}
+@keyframes slideUp {
+  from { opacity: 0; transform: translateX(-50%) translateY(20px); }
+  to { opacity: 1; transform: translateX(-50%) translateY(0); }
+}
+.download-info { display: flex; align-items: center; gap: 10px; flex: 1; }
+.download-icon { font-size: 18px; }
+.download-msg { font-size: 14px; font-weight: 500; color: var(--text); }
+.download-btn-main {
+  background: var(--teal); color: white;
+  border: none; padding: 10px 20px;
+  border-radius: 50px; font-size: 14px;
+  font-weight: 500; cursor: pointer;
+  transition: background .2s; white-space: nowrap;
+}
+.download-btn-main:hover { background: var(--teal-dark); }
+.download-close {
+  background: none; border: none;
+  color: var(--text3); font-size: 16px;
+  cursor: pointer; padding: 4px;
+}

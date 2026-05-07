@@ -177,12 +177,17 @@ function formatSize(bytes) {
 // ── CSV TO EXCEL ──
 function convertToExcel() {
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
-
   const ws = XLSX.utils.json_to_sheet(parsedData.data);
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-  XLSX.writeFile(wb, 'csvnow_export.xlsx');
+  const wbout = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+  const blob = new Blob([wbout], { type: 'application/octet-stream' });
+  const url = URL.createObjectURL(blob);
+  pendingDownload = { url, filename: 'csvnow_export.xlsx', isUrl: true };
+  document.getElementById('download-msg').textContent = 'csvnow_export.xlsx is ready';
+  document.getElementById('download-bar').style.display = 'flex';
 }
+
 // ── CSV TO JSON ──
 function convertToJSON() {
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
@@ -191,15 +196,34 @@ function convertToJSON() {
   downloadFile(json, 'csvnow_export.json', 'application/json');
 }
 
-// ── DOWNLOAD HELPER ──
+// ── DOWNLOAD SYSTEM ──
+let pendingDownload = null;
+
 function downloadFile(content, filename, type) {
-  const blob = new Blob([content], { type });
-  const url = URL.createObjectURL(blob);
+  pendingDownload = { content, filename, type };
+  document.getElementById('download-msg').textContent = `${filename} is ready`;
+  document.getElementById('download-bar').style.display = 'flex';
+}
+
+function triggerDownload() {
+  if (!pendingDownload) return;
   const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
+  if (pendingDownload.isUrl) {
+    a.href = pendingDownload.url;
+    a.download = pendingDownload.filename;
+  } else {
+    const { content, filename, type } = pendingDownload;
+    const blob = new Blob([content], { type });
+    a.href = URL.createObjectURL(blob);
+    a.download = filename;
+  }
   a.click();
-  URL.revokeObjectURL(url);
+  hideDownloadBar();
+}
+
+function hideDownloadBar() {
+  document.getElementById('download-bar').style.display = 'none';
+  pendingDownload = null;
 }
 // ── CSV TO SQL ──
 function convertToSQL() {
