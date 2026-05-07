@@ -64,6 +64,7 @@ document.querySelectorAll('.tool-card, .feature-card, .plan-card').forEach(el =>
   observer.observe(el);
 });
 // ── CSV UPLOAD & PREVIEW ──
+const BACKEND_URL = "https://fatimafzal188-csvnow-backend.hf.space";
 let parsedData = null;
 
 const uploadBox = document.getElementById('upload-box');
@@ -560,13 +561,31 @@ function qualityScore() {
   alert(msg);
 }
 // ── CSV PULSE ──
-function csvPulse() {
+async function csvPulse() {
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
 
   const fields = parsedData.meta.fields;
   const rows = parsedData.data;
-  let issues = [];
-  let good = [];
+
+  try {
+    const response = await fetch(`${BACKEND_URL}/csv-pulse`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        headers: fields,
+        sample_rows: rows.slice(0, 5),
+        row_count: rows.length,
+        col_count: fields.length
+      })
+    });
+
+    const data = await response.json();
+    alert(`⚡ CSV Pulse — AI Diagnosis\n\n${data.diagnosis}`);
+
+  } catch (error) {
+    alert('Could not connect to AI backend. Please try again.');
+  }
+}
 
   // Empty cells
   let emptyCells = 0;
