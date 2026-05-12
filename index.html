@@ -52,7 +52,7 @@
       <a href="#features">Features</a>
       <a href="#pricing">Pricing</a>
     </div>
-    <a href="#pricing" class="nav-cta">Get Started</a>
+    <a href="login.html" class="nav-cta" id="nav-auth-btn">Log In</a>
   </nav>
 
   <!-- HERO -->
@@ -356,5 +356,24 @@
     </div>
   </div>
   <script src="js/main.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://scxkbtypfmdaeuytbcaz.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjeGtidHlwZm1kYWV1eXRiY2F6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTU0NjgsImV4cCI6MjA5NDA5MTQ2OH0.YlOCebdFuEPHZfkN1bSaD3BXzMpq3nAx5ArIqfvj6tA';
+const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+_supabase.auth.getSession().then(({ data: { session } }) => {
+  const btn = document.getElementById('nav-auth-btn');
+  if (session) {
+    btn.textContent = 'Log Out';
+    btn.href = '#';
+    btn.onclick = async () => {
+      await _supabase.auth.signOut();
+      window.location.reload();
+    };
+  }
+});
+</script>
 </body>
 </html>
+
