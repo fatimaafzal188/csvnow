@@ -29,6 +29,7 @@
     .error{background:#fef2f2;color:#ef4444;font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none;}
     .success{background:var(--teal-light);color:var(--teal-dark);font-size:13px;padding:10px 14px;border-radius:8px;margin-bottom:16px;display:none;}
   </style>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <a href="index.html" class="logo">CSV<span>Now</span></a>
@@ -51,11 +52,11 @@
     <div class="footer-link">Already have an account? <a href="login.html">Log in</a></div>
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <script>
     const SUPABASE_URL = 'https://scxkbtypfmdaeuytbcaz.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNjeGtidHlwZm1kYWV1eXRiY2F6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg1MTU0NjgsImV4cCI6MjA5NDA5MTQ2OH0.YlOCebdFuEPHZfkN1bSaD3BXzMpq3nAx5ArIqfvj6tA';
-    const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const _supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
     function showError(msg) {
       const el = document.getElementById('error-msg');
@@ -76,18 +77,18 @@
       const password = document.getElementById('password').value;
       if (!email || !password) { showError('Please enter your email and password.'); return; }
       if (password.length < 6) { showError('Password must be at least 6 characters.'); return; }
-      const { error } = await supabase.auth.signUp({ email, password });
+      const { error } = await _supabase.auth.signUp({ email, password });
       if (error) { showError(error.message); return; }
       showSuccess('Account created! Check your email to confirm your account.');
     }
 
     async function handleGoogle() {
-      const { error } = await supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + '/index.html' } });
+      const { error } = await _supabase.auth.signInWithOAuth({ provider: 'google', options: { redirectTo: window.location.origin + '/index.html' } });
       if (error) showError(error.message);
     }
 
     // Check if already logged in
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    _supabase.auth.getSession().then(({ data: { session } }) => {
       if (session) window.location.href = 'index.html';
     });
   </script>
