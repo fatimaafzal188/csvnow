@@ -1,3 +1,4 @@
+
 // ── AUTH CHECK ──
 async function checkProAccess() {
   const { data: { session } } = await _supabase.auth.getSession();
