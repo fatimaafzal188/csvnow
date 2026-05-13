@@ -1,3 +1,15 @@
+// ── AUTH CHECK ──
+async function checkProAccess() {
+  const { data: { session } } = await _supabase.auth.getSession();
+  if (!session) {
+    alert('This is a Pro feature. Please log in or upgrade to Pro.');
+    window.location.href = 'login.html';
+    return false;
+  }
+  return true;
+}
+
+
 // ── BILLING TOGGLE ──
 let isAnnual = false;
 
@@ -707,4 +719,20 @@ function submitSuggestion() {
   document.getElementById('suggest-text').value = '';
   document.getElementById('suggest-email').value = '';
   closeSuggest();
+}
+
+// ── PRO GATE ──
+async function proGate() {
+  const { data: { session } } = await _supabase.auth.getSession();
+  if (!session) {
+    if (confirm('This is a Pro feature. Log in or sign up to upgrade?\n\nClick OK to go to login page.')) {
+      window.location.href = 'login.html';
+    }
+    return false;
+  } else {
+    if (confirm('This feature requires a Pro plan ($12/mo).\n\nClick OK to upgrade now.')) {
+      window.location.href = 'https://csvnow.lemonsqueezy.com/checkout/buy/c191afcf-8038-4dda-8f5b-9f3f79d1d50d';
+    }
+    return false;
+  }
 }
