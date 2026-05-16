@@ -737,3 +737,27 @@ async function proGate() {
     return false;
   }
 }
+
+async function convertToParquet() {
+  if (!parsedData || parsedData.length === 0) {
+    alert('Please upload a CSV file first.');
+    return;
+  }
+  showDownloadBar('Converting to Parquet...');
+  try {
+    const response = await fetch('https://fatimafzal188-csvnow-backend.hf.space/convert-parquet', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        headers: Object.keys(parsedData[0]),
+        rows: parsedData
+      })
+    });
+    const data = await response.json();
+    const bytes = Uint8Array.from(atob(data.file_base64), c => c.charCodeAt(0));
+    const blob = new Blob([bytes], { type: 'application/octet-stream' });
+    prepareDownload(blob, 'converted.parquet');
+  } catch (err) {
+    alert('Parquet conversion failed. Please try again.');
+  }
+}
