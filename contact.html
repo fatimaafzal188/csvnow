@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Contact — CSVNow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0a;
+    --surface:#111111;
+    --border:#1e1e1e;
+    --text:#e8e8e8;
+    --muted:#888;
+    --accent:#22c55e;
+    --accent-dim:#16a34a22;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.75}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100}
+  .logo{font-size:1.1rem;font-weight:600;color:var(--text);letter-spacing:-0.02em}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:2rem;font-size:0.875rem}
+  .nav-links a{color:var(--muted)}
+  .nav-links a:hover{color:var(--text)}
+  .btn-login{background:transparent;border:1px solid var(--border);color:var(--text);padding:0.4rem 1rem;border-radius:6px;font-size:0.875rem;cursor:pointer;font-family:inherit}
+  .btn-login:hover{border-color:#444}
+
+  .hero{text-align:center;padding:4rem 2rem 3rem;border-bottom:1px solid var(--border)}
+  .badge{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:0.75rem;font-weight:500;letter-spacing:0.05em;padding:0.3rem 0.8rem;border-radius:999px;border:1px solid #22c55e33;margin-bottom:1.5rem}
+  .hero h1{font-size:2.4rem;font-weight:600;letter-spacing:-0.03em;margin-bottom:0.75rem}
+  .hero p{color:var(--muted);font-size:0.95rem}
+
+  .container{max-width:860px;margin:0 auto;padding:3rem 2rem 5rem}
+
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
+  @media(max-width:640px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:2rem}
+  .card h2{font-size:1.1rem;font-weight:600;margin-bottom:0.5rem}
+  .card p{color:#bbb;font-size:0.875rem;margin-bottom:1.5rem}
+
+  label{display:block;font-size:0.8rem;color:var(--muted);margin-bottom:0.4rem;letter-spacing:0.03em}
+  input,textarea,select{width:100%;background:#0f0f0f;border:1px solid var(--border);border-radius:6px;color:var(--text);font-family:'Inter',sans-serif;font-size:0.875rem;padding:0.65rem 0.9rem;margin-bottom:1rem;outline:none;transition:border-color 0.2s}
+  input:focus,textarea:focus,select:focus{border-color:#22c55e55}
+  textarea{resize:vertical;min-height:120px}
+  select option{background:#111}
+
+  .btn-submit{width:100%;background:var(--accent);color:#000;font-weight:600;font-size:0.875rem;padding:0.75rem;border-radius:6px;border:none;cursor:pointer;font-family:'Inter',sans-serif;transition:background 0.2s}
+  .btn-submit:hover{background:#16a34a}
+
+  .success-msg{display:none;background:#0a1f0f;border:1px solid #22c55e33;border-radius:8px;padding:1rem 1.25rem;color:#22c55e;font-size:0.875rem;text-align:center;margin-top:1rem}
+
+  .info-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;display:flex;flex-direction:column;gap:1.25rem}
+  .info-item{display:flex;align-items:flex-start;gap:1rem}
+  .info-icon{width:36px;height:36px;background:var(--accent-dim);border:1px solid #22c55e22;border-radius:8px;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:1rem}
+  .info-text p:first-child{font-size:0.8rem;color:var(--muted);margin-bottom:0.1rem}
+  .info-text p:last-child{font-size:0.9rem;color:var(--text)}
+
+  .faq{margin-top:3rem}
+  .faq h2{font-size:1.25rem;font-weight:600;margin-bottom:1.5rem}
+  .faq-item{border-bottom:1px solid var(--border);padding:1.1rem 0}
+  .faq-item:last-child{border-bottom:none}
+  .faq-q{font-size:0.9375rem;font-weight:500;color:var(--text);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem}
+  .faq-q span{color:var(--muted);font-size:1.1rem;transition:transform 0.2s}
+  .faq-a{font-size:0.875rem;color:#bbb;margin-top:0.6rem;display:none}
+  .faq-item.open .faq-a{display:block}
+  .faq-item.open .faq-q span{transform:rotate(45deg)}
+
+  footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:0.8rem}
+  footer .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:0.75rem;flex-wrap:wrap}
+  footer .footer-links a{color:var(--muted)}
+  footer .footer-links a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><a href="index.html" style="color:var(--text);text-decoration:none">CSV<span>Now</span></a></div>
+  <div class="nav-links">
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#pricing">Pricing</a>
+  </div>
+  <button class="btn-login" onclick="window.location.href='login.html'">Log In</button>
+</nav>
+
+<div class="hero">
+  <div class="badge">✦ Get in touch</div>
+  <h1>Contact us</h1>
+  <p>Have a question, bug report, or feature idea? We'd love to hear from you.</p>
+</div>
+
+<div class="container">
+
+  <div class="grid">
+
+    <div class="card">
+      <h2>Send us a message</h2>
+      <p>We typically respond within 1–2 business days.</p>
+
+      <label>Your name</label>
+      <input type="text" id="name" placeholder="e.g. Sarah Ahmed" />
+
+      <label>Email address</label>
+      <input type="email" id="email" placeholder="you@example.com" />
+
+      <label>Topic</label>
+      <select id="topic">
+        <option value="">Select a topic...</option>
+        <option value="bug">Bug report</option>
+        <option value="feature">Feature request</option>
+        <option value="billing">Billing / subscription</option>
+        <option value="general">General question</option>
+        <option value="other">Other</option>
+      </select>
+
+      <label>Message</label>
+      <textarea id="message" placeholder="Describe your issue or idea in detail..."></textarea>
+
+      <button class="btn-submit" onclick="handleSubmit()">Send message</button>
+      <div class="success-msg" id="success">✓ Message sent! We'll get back to you soon.</div>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:1.5rem">
+      <div class="info-card">
+        <div class="info-item">
+          <div class="info-icon">✉</div>
+          <div class="info-text">
+            <p>Email us directly</p>
+            <p><a href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a></p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">⚡</div>
+          <div class="info-text">
+            <p>Response time</p>
+            <p>Within 1–2 business days</p>
+          </div>
+        </div>
+        <div class="info-item">
+          <div class="info-icon">🔒</div>
+          <div class="info-text">
+            <p>Privacy</p>
+            <p>Your message is kept confidential</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" style="padding:1.5rem">
+        <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem">Have a tool idea?</p>
+        <p style="font-size:0.9rem;color:#bbb;margin-bottom:1rem">We love suggestions. Tell us what CSV tool you wish existed.</p>
+        <a href="mailto:YOUR_EMAIL_HERE?subject=Feature Suggestion" style="display:inline-block;background:var(--accent-dim);color:var(--accent);border:1px solid #22c55e33;font-size:0.8rem;font-weight:500;padding:0.5rem 1rem;border-radius:6px">✦ Suggest a feature →</a>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="faq">
+    <h2>Frequently asked questions</h2>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Is CSVNow really free? <span>+</span></div>
+      <div class="faq-a">Yes — the Free plan is free forever with no credit card required. You get access to all conversion formats, CSV Pulse, Compatibility Checker, and more. Paid plans unlock larger files, unlimited conversions, and AI tools.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Are my files private? <span>+</span></div>
+      <div class="faq-a">On the Free plan, all processing happens in your browser — your files never reach our servers. On Pro/Business, files sent for AI features are processed in memory and deleted immediately. We never read or store your file content.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">How do I cancel my subscription? <span>+</span></div>
+      <div class="faq-a">You can cancel anytime from your account settings or by emailing us. You'll keep access until the end of your current billing period. No questions asked.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Can I get a refund? <span>+</span></div>
+      <div class="faq-a">Yes — we offer a 7-day refund policy for first-time subscribers. Email us within 7 days of your first payment and we'll process the refund promptly.</div>
+    </div>
+
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">Do you offer an API? <span>+</span></div>
+      <div class="faq-a">Yes, the Business plan includes full REST API access with 1,000 calls/day. Contact us if you need higher limits or a custom plan.</div>
+    </div>
+
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+    <a href="#">Suggest a Feature</a>
+  </div>
+  <p>© 2026 CSVNow. All rights reserved.</p>
+</footer>
+
+<script>
+function handleSubmit(){
+  const name=document.getElementById('name').value.trim();
+  const email=document.getElementById('email').value.trim();
+  const topic=document.getElementById('topic').value;
+  const message=document.getElementById('message').value.trim();
+  if(!name||!email||!topic||!message){alert('Please fill in all fields.');return;}
+  const mailto='mailto:YOUR_EMAIL_HERE?subject='+encodeURIComponent('[CSVNow] '+topic)+'&body='+encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
+  window.location.href=mailto;
+  document.getElementById('success').style.display='block';
+}
+
+function toggleFaq(el){
+  const item=el.parentElement;
+  item.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>

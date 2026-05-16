@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Privacy Policy — CSVNow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0a;
+    --surface:#111111;
+    --border:#1e1e1e;
+    --text:#e8e8e8;
+    --muted:#888;
+    --accent:#22c55e;
+    --accent-dim:#16a34a22;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.75}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100}
+  .logo{font-size:1.1rem;font-weight:600;color:var(--text);letter-spacing:-0.02em}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:2rem;font-size:0.875rem;color:var(--muted)}
+  .nav-links a{color:var(--muted)}
+  .nav-links a:hover{color:var(--text)}
+  .btn-login{background:transparent;border:1px solid var(--border);color:var(--text);padding:0.4rem 1rem;border-radius:6px;font-size:0.875rem;cursor:pointer;font-family:inherit}
+  .btn-login:hover{border-color:#444}
+
+  .hero{text-align:center;padding:4rem 2rem 3rem;border-bottom:1px solid var(--border)}
+  .badge{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:0.75rem;font-weight:500;letter-spacing:0.05em;padding:0.3rem 0.8rem;border-radius:999px;border:1px solid #22c55e33;margin-bottom:1.5rem}
+  .hero h1{font-size:2.4rem;font-weight:600;letter-spacing:-0.03em;margin-bottom:0.75rem}
+  .hero p{color:var(--muted);font-size:0.95rem}
+
+  .container{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem}
+
+  .toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:3rem}
+  .toc h3{font-size:0.75rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem}
+  .toc ol{padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem}
+  .toc ol li{font-size:0.875rem}
+  .toc ol li a{color:var(--muted)}
+  .toc ol li a:hover{color:var(--accent)}
+
+  .section{margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+  .section:last-child{border-bottom:none}
+  .section-num{font-size:0.7rem;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;font-weight:500;margin-bottom:0.4rem}
+  .section h2{font-size:1.25rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:1rem}
+  .section p{color:#bbb;margin-bottom:0.9rem;font-size:0.9375rem}
+  .section ul{padding-left:1.25rem;display:flex;flex-direction:column;gap:0.5rem;color:#bbb;font-size:0.9375rem;margin-bottom:0.9rem}
+  .section ul li::marker{color:var(--accent)}
+
+  .highlight-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1.2rem 0}
+  .highlight-box p{margin:0;font-size:0.875rem;color:#bbb}
+  .highlight-box strong{color:var(--text)}
+
+  .contact-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  .contact-card p{color:#bbb;font-size:0.875rem;margin:0}
+  .contact-card a.btn{display:inline-block;background:var(--accent);color:#000;font-weight:500;font-size:0.875rem;padding:0.5rem 1.25rem;border-radius:6px;text-decoration:none}
+  .contact-card a.btn:hover{background:#16a34a}
+
+  footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:0.8rem}
+  footer .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:0.75rem;flex-wrap:wrap}
+  footer .footer-links a{color:var(--muted)}
+  footer .footer-links a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><a href="index.html" style="color:var(--text);text-decoration:none">CSV<span>Now</span></a></div>
+  <div class="nav-links">
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#pricing">Pricing</a>
+  </div>
+  <button class="btn-login" onclick="window.location.href='login.html'">Log In</button>
+</nav>
+
+<div class="hero">
+  <div class="badge">✦ Legal</div>
+  <h1>Privacy Policy</h1>
+  <p>Last updated: May 16, 2026 &nbsp;·&nbsp; Effective immediately</p>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">Who we are</a></li>
+      <li><a href="#s2">What data we collect</a></li>
+      <li><a href="#s3">How we use your data</a></li>
+      <li><a href="#s4">Your files &amp; privacy</a></li>
+      <li><a href="#s5">Cookies &amp; analytics</a></li>
+      <li><a href="#s6">Third-party services</a></li>
+      <li><a href="#s7">Data retention</a></li>
+      <li><a href="#s8">Your rights</a></li>
+      <li><a href="#s9">Children's privacy</a></li>
+      <li><a href="#s10">Changes to this policy</a></li>
+      <li><a href="#s11">Contact us</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>Short version:</strong> Your CSV files never leave your device on the Free plan — all processing happens in your browser. We only collect minimal data to run the service. We don't sell your data, ever.</p>
+  </div>
+
+  <div class="section" id="s1">
+    <div class="section-num">01</div>
+    <h2>Who we are</h2>
+    <p>CSVNow ("we", "us", or "our") is a browser-based CSV utility platform available at <a href="https://csvnow.vercel.app">csvnow.vercel.app</a>. We provide tools to convert, clean, and repair CSV files.</p>
+    <p>For any privacy-related questions, you can reach us at <a href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a>.</p>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-num">02</div>
+    <h2>What data we collect</h2>
+    <p>We collect the minimum data necessary to operate CSVNow:</p>
+    <ul>
+      <li><strong>Account data</strong> — if you create an account: your email address and a hashed password.</li>
+      <li><strong>Usage data</strong> — which tools you use, how often, and from which country (no IP address stored).</li>
+      <li><strong>Payment data</strong> — handled entirely by LemonSqueezy. We never see or store your card details.</li>
+      <li><strong>Support messages</strong> — if you contact us, we keep that correspondence.</li>
+    </ul>
+    <p>We do <strong>not</strong> collect names, phone numbers, or any data beyond what's listed above.</p>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-num">03</div>
+    <h2>How we use your data</h2>
+    <p>We use collected data solely to:</p>
+    <ul>
+      <li>Provide and improve the CSVNow service</li>
+      <li>Authenticate your account and enforce plan limits</li>
+      <li>Send transactional emails (receipts, password resets)</li>
+      <li>Understand which tools are most useful (aggregate analytics only)</li>
+    </ul>
+    <p>We do not use your data for advertising, profiling, or any purpose not listed here. We do not sell your data to any third party.</p>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-num">04</div>
+    <h2>Your files &amp; privacy</h2>
+    <div class="highlight-box">
+      <p><strong>Free plan:</strong> All file processing happens entirely in your browser using JavaScript. Your CSV files are never uploaded to our servers. We cannot see them.</p>
+    </div>
+    <p>On paid plans (Pro / Business), certain AI-powered features may send file content to our processing server to run the analysis. In those cases:</p>
+    <ul>
+      <li>Files are processed in memory and immediately discarded after the operation completes.</li>
+      <li>We do not store, log, or retain any file content.</li>
+      <li>Transmission is encrypted via HTTPS/TLS.</li>
+    </ul>
+    <p>We will never read, share, or use the content of your CSV files for any purpose other than completing the requested operation.</p>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-num">05</div>
+    <h2>Cookies &amp; analytics</h2>
+    <p>We use a minimal set of cookies:</p>
+    <ul>
+      <li><strong>Session cookies</strong> — to keep you logged in. These expire when you close your browser.</li>
+      <li><strong>Preference cookies</strong> — to remember your plan toggle (monthly/annual) and UI settings.</li>
+    </ul>
+    <p>We use privacy-friendly analytics (no cross-site tracking, no fingerprinting) to understand page performance. No personally identifiable information is collected through analytics.</p>
+    <p>You can disable cookies in your browser settings. Core functionality works without cookies on the Free plan.</p>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-num">06</div>
+    <h2>Third-party services</h2>
+    <p>We use a small number of trusted third-party services:</p>
+    <ul>
+      <li><strong>LemonSqueezy</strong> — payment processing for Pro and Business plans. Their <a href="https://www.lemonsqueezy.com/privacy" target="_blank">privacy policy</a> applies to payment data.</li>
+      <li><strong>Vercel</strong> — hosting and edge delivery. See <a href="https://vercel.com/legal/privacy-policy" target="_blank">Vercel's privacy policy</a>.</li>
+      <li><strong>Groq / AI providers</strong> — used only for AI-powered Pro features. Requests are sent without any identifying user information.</li>
+    </ul>
+    <p>We do not use Facebook Pixel, Google Ads, or any advertising trackers.</p>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-num">07</div>
+    <h2>Data retention</h2>
+    <ul>
+      <li><strong>Account data</strong> — retained while your account is active, and deleted within 30 days of account deletion.</li>
+      <li><strong>Usage logs</strong> — aggregated and anonymised after 90 days.</li>
+      <li><strong>File content</strong> — never retained (see Section 4).</li>
+      <li><strong>Support correspondence</strong> — retained for up to 2 years.</li>
+    </ul>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-num">08</div>
+    <h2>Your rights</h2>
+    <p>Depending on where you are located, you may have the following rights:</p>
+    <ul>
+      <li><strong>Access</strong> — request a copy of the data we hold about you.</li>
+      <li><strong>Correction</strong> — ask us to correct inaccurate data.</li>
+      <li><strong>Deletion</strong> — request deletion of your account and associated data.</li>
+      <li><strong>Portability</strong> — receive your data in a machine-readable format.</li>
+      <li><strong>Objection</strong> — opt out of any processing you believe is unfair.</li>
+    </ul>
+    <p>To exercise any of these rights, email <a href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a>. We respond within 14 business days.</p>
+  </div>
+
+  <div class="section" id="s9">
+    <div class="section-num">09</div>
+    <h2>Children's privacy</h2>
+    <p>CSVNow is not directed at children under 13. We do not knowingly collect personal data from children. If you believe a child has provided us with personal information, please contact us and we will delete it promptly.</p>
+  </div>
+
+  <div class="section" id="s10">
+    <div class="section-num">10</div>
+    <h2>Changes to this policy</h2>
+    <p>We may update this Privacy Policy occasionally. When we do, we will update the "Last updated" date at the top of this page. Significant changes will be communicated to registered users via email.</p>
+    <p>Continued use of CSVNow after changes constitutes acceptance of the updated policy.</p>
+  </div>
+
+  <div class="section" id="s11">
+    <div class="section-num">11</div>
+    <h2>Contact us</h2>
+    <div class="contact-card">
+      <div>
+        <p style="font-weight:500;color:#e8e8e8;margin-bottom:0.25rem">Have a privacy question?</p>
+        <p>We're happy to help. Email us and we'll respond within 14 business days.</p>
+      </div>
+      <a href="mailto:YOUR_EMAIL_HERE" class="btn">YOUR_EMAIL_HERE</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+    <a href="#">Suggest a Feature</a>
+  </div>
+  <p>© 2026 CSVNow. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

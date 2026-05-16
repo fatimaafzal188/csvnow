@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Terms of Service — CSVNow</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0a;
+    --surface:#111111;
+    --border:#1e1e1e;
+    --text:#e8e8e8;
+    --muted:#888;
+    --accent:#22c55e;
+    --accent-dim:#16a34a22;
+  }
+  body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:15px;line-height:1.75}
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  nav{display:flex;align-items:center;justify-content:space-between;padding:1.2rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--bg);z-index:100}
+  .logo{font-size:1.1rem;font-weight:600;color:var(--text);letter-spacing:-0.02em}
+  .logo span{color:var(--accent)}
+  .nav-links{display:flex;gap:2rem;font-size:0.875rem}
+  .nav-links a{color:var(--muted)}
+  .nav-links a:hover{color:var(--text)}
+  .btn-login{background:transparent;border:1px solid var(--border);color:var(--text);padding:0.4rem 1rem;border-radius:6px;font-size:0.875rem;cursor:pointer;font-family:inherit}
+  .btn-login:hover{border-color:#444}
+
+  .hero{text-align:center;padding:4rem 2rem 3rem;border-bottom:1px solid var(--border)}
+  .badge{display:inline-block;background:var(--accent-dim);color:var(--accent);font-size:0.75rem;font-weight:500;letter-spacing:0.05em;padding:0.3rem 0.8rem;border-radius:999px;border:1px solid #22c55e33;margin-bottom:1.5rem}
+  .hero h1{font-size:2.4rem;font-weight:600;letter-spacing:-0.03em;margin-bottom:0.75rem}
+  .hero p{color:var(--muted);font-size:0.95rem}
+
+  .container{max-width:760px;margin:0 auto;padding:3rem 2rem 5rem}
+
+  .toc{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;margin-bottom:3rem}
+  .toc h3{font-size:0.75rem;letter-spacing:0.08em;color:var(--muted);text-transform:uppercase;margin-bottom:1rem}
+  .toc ol{padding-left:1.2rem;display:flex;flex-direction:column;gap:0.4rem}
+  .toc ol li{font-size:0.875rem}
+  .toc ol li a{color:var(--muted)}
+  .toc ol li a:hover{color:var(--accent)}
+
+  .section{margin-bottom:3rem;padding-bottom:3rem;border-bottom:1px solid var(--border)}
+  .section:last-child{border-bottom:none}
+  .section-num{font-size:0.7rem;letter-spacing:0.1em;color:var(--accent);text-transform:uppercase;font-weight:500;margin-bottom:0.4rem}
+  .section h2{font-size:1.25rem;font-weight:600;letter-spacing:-0.02em;margin-bottom:1rem}
+  .section p{color:#bbb;margin-bottom:0.9rem;font-size:0.9375rem}
+  .section ul{padding-left:1.25rem;display:flex;flex-direction:column;gap:0.5rem;color:#bbb;font-size:0.9375rem;margin-bottom:0.9rem}
+  .section ul li::marker{color:var(--accent)}
+
+  .highlight-box{background:var(--surface);border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1.2rem 0}
+  .highlight-box p{margin:0;font-size:0.875rem;color:#bbb}
+  .highlight-box strong{color:var(--text)}
+
+  .warn-box{background:#1a1000;border:1px solid #2a1f00;border-left:3px solid #f59e0b;border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin:1.2rem 0}
+  .warn-box p{margin:0;font-size:0.875rem;color:#bbb}
+  .warn-box strong{color:#f59e0b}
+
+  .contact-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.5rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem}
+  .contact-card p{color:#bbb;font-size:0.875rem;margin:0}
+  .contact-card a.btn{display:inline-block;background:var(--accent);color:#000;font-weight:500;font-size:0.875rem;padding:0.5rem 1.25rem;border-radius:6px;text-decoration:none}
+  .contact-card a.btn:hover{background:#16a34a}
+
+  footer{border-top:1px solid var(--border);padding:2rem;text-align:center;color:var(--muted);font-size:0.8rem}
+  footer .footer-links{display:flex;justify-content:center;gap:1.5rem;margin-bottom:0.75rem;flex-wrap:wrap}
+  footer .footer-links a{color:var(--muted)}
+  footer .footer-links a:hover{color:var(--text)}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo"><a href="index.html" style="color:var(--text);text-decoration:none">CSV<span>Now</span></a></div>
+  <div class="nav-links">
+    <a href="index.html#tools">Tools</a>
+    <a href="index.html#features">Features</a>
+    <a href="index.html#pricing">Pricing</a>
+  </div>
+  <button class="btn-login" onclick="window.location.href='login.html'">Log In</button>
+</nav>
+
+<div class="hero">
+  <div class="badge">✦ Legal</div>
+  <h1>Terms of Service</h1>
+  <p>Last updated: May 16, 2026 &nbsp;·&nbsp; Effective immediately</p>
+</div>
+
+<div class="container">
+
+  <div class="toc">
+    <h3>Contents</h3>
+    <ol>
+      <li><a href="#s1">Acceptance of terms</a></li>
+      <li><a href="#s2">Description of service</a></li>
+      <li><a href="#s3">Account registration</a></li>
+      <li><a href="#s4">Acceptable use</a></li>
+      <li><a href="#s5">Plans, billing &amp; refunds</a></li>
+      <li><a href="#s6">Your content</a></li>
+      <li><a href="#s7">Intellectual property</a></li>
+      <li><a href="#s8">Disclaimer of warranties</a></li>
+      <li><a href="#s9">Limitation of liability</a></li>
+      <li><a href="#s10">Termination</a></li>
+      <li><a href="#s11">Changes to these terms</a></li>
+      <li><a href="#s12">Contact us</a></li>
+    </ol>
+  </div>
+
+  <div class="highlight-box">
+    <p><strong>Short version:</strong> Use CSVNow fairly, don't abuse it, pay for what you use, and we'll keep it running reliably for you. By using CSVNow you agree to these terms.</p>
+  </div>
+
+  <div class="section" id="s1">
+    <div class="section-num">01</div>
+    <h2>Acceptance of terms</h2>
+    <p>By accessing or using CSVNow at <a href="https://csvnow.vercel.app">csvnow.vercel.app</a> ("the Service"), you agree to be bound by these Terms of Service ("Terms"). If you do not agree, please do not use the Service.</p>
+    <p>These Terms apply to all visitors, users, and anyone who accesses the Service.</p>
+  </div>
+
+  <div class="section" id="s2">
+    <div class="section-num">02</div>
+    <h2>Description of service</h2>
+    <p>CSVNow is a browser-based platform that provides tools to convert, clean, and repair CSV files. The Service includes free tools available to all visitors and premium tools available to paid subscribers.</p>
+    <p>We reserve the right to modify, suspend, or discontinue any part of the Service at any time with or without notice.</p>
+  </div>
+
+  <div class="section" id="s3">
+    <div class="section-num">03</div>
+    <h2>Account registration</h2>
+    <p>Some features require you to create an account. When registering, you agree to:</p>
+    <ul>
+      <li>Provide accurate and complete information</li>
+      <li>Keep your password secure and confidential</li>
+      <li>Notify us immediately of any unauthorised use of your account</li>
+      <li>Be responsible for all activity that occurs under your account</li>
+    </ul>
+    <p>You must be at least 13 years old to create an account. By registering, you confirm you meet this requirement.</p>
+  </div>
+
+  <div class="section" id="s4">
+    <div class="section-num">04</div>
+    <h2>Acceptable use</h2>
+    <p>You agree to use CSVNow only for lawful purposes. You must not:</p>
+    <ul>
+      <li>Use the Service to process illegal, harmful, or malicious data</li>
+      <li>Attempt to reverse-engineer, scrape, or copy the Service</li>
+      <li>Use automated bots or scripts to abuse the Service beyond normal use</li>
+      <li>Circumvent plan limits or access restrictions</li>
+      <li>Resell or sublicense access to the Service without our written permission</li>
+      <li>Interfere with the Service's infrastructure or other users' access</li>
+    </ul>
+    <p>We reserve the right to suspend or terminate accounts that violate these rules without prior notice.</p>
+  </div>
+
+  <div class="section" id="s5">
+    <div class="section-num">05</div>
+    <h2>Plans, billing &amp; refunds</h2>
+    <p>CSVNow offers a Free plan and paid plans (Pro and Business). Paid plans are billed monthly or annually through LemonSqueezy.</p>
+    <ul>
+      <li><strong>Billing:</strong> Subscriptions renew automatically at the end of each billing period.</li>
+      <li><strong>Cancellation:</strong> You may cancel at any time. Access continues until the end of the current paid period.</li>
+      <li><strong>Refunds:</strong> We offer a 7-day refund policy for first-time subscribers. After 7 days, payments are non-refundable.</li>
+      <li><strong>Price changes:</strong> We will notify you at least 14 days before any price increase takes effect.</li>
+    </ul>
+    <div class="warn-box">
+      <p><strong>Note:</strong> All payments are processed by LemonSqueezy. We do not store your payment information.</p>
+    </div>
+  </div>
+
+  <div class="section" id="s6">
+    <div class="section-num">06</div>
+    <h2>Your content</h2>
+    <p>You retain full ownership of any files or data you process using CSVNow. By using the Service, you grant us a limited, temporary licence to process your data solely to perform the requested operation.</p>
+    <p>On the Free plan, all processing happens in your browser and your files never reach our servers. On paid plans, files sent to our servers for AI processing are deleted immediately after the operation completes.</p>
+    <p>You are solely responsible for ensuring you have the right to process any data you upload, including compliance with applicable data protection laws.</p>
+  </div>
+
+  <div class="section" id="s7">
+    <div class="section-num">07</div>
+    <h2>Intellectual property</h2>
+    <p>All content, design, code, and branding of CSVNow — including the name, logo, and tool interfaces — are owned by CSVNow and protected by applicable intellectual property laws.</p>
+    <p>You may not copy, reproduce, or create derivative works from any part of the Service without our explicit written permission.</p>
+    <p>The output files generated by your use of CSVNow belong to you.</p>
+  </div>
+
+  <div class="section" id="s8">
+    <div class="section-num">08</div>
+    <h2>Disclaimer of warranties</h2>
+    <div class="warn-box">
+      <p><strong>The Service is provided "as is" and "as available"</strong> without warranties of any kind, either express or implied. We do not warrant that the Service will be uninterrupted, error-free, or completely secure.</p>
+    </div>
+    <p>We are not responsible for any data loss resulting from use of the Service. Always keep backups of your original files before processing them.</p>
+  </div>
+
+  <div class="section" id="s9">
+    <div class="section-num">09</div>
+    <h2>Limitation of liability</h2>
+    <p>To the maximum extent permitted by law, CSVNow shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of the Service, including but not limited to loss of data, loss of profits, or business interruption.</p>
+    <p>Our total liability to you for any claim arising from use of the Service shall not exceed the amount you paid us in the 3 months prior to the claim.</p>
+  </div>
+
+  <div class="section" id="s10">
+    <div class="section-num">10</div>
+    <h2>Termination</h2>
+    <p>You may stop using the Service and delete your account at any time by contacting us.</p>
+    <p>We may suspend or terminate your access at our discretion if we believe you have violated these Terms, without refund or prior notice.</p>
+    <p>Upon termination, your right to use the Service ceases immediately. Sections covering intellectual property, disclaimers, and limitation of liability survive termination.</p>
+  </div>
+
+  <div class="section" id="s11">
+    <div class="section-num">11</div>
+    <h2>Changes to these terms</h2>
+    <p>We may update these Terms from time to time. When we do, we will update the "Last updated" date at the top of this page.</p>
+    <p>For significant changes, we will notify registered users via email at least 7 days before the changes take effect. Continued use of the Service after changes constitutes acceptance of the updated Terms.</p>
+  </div>
+
+  <div class="section" id="s12">
+    <div class="section-num">12</div>
+    <h2>Contact us</h2>
+    <div class="contact-card">
+      <div>
+        <p style="font-weight:500;color:#e8e8e8;margin-bottom:0.25rem">Questions about these terms?</p>
+        <p>Send us an email and we'll get back to you within 14 business days.</p>
+      </div>
+      <a href="mailto:YOUR_EMAIL_HERE" class="btn">YOUR_EMAIL_HERE</a>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <div class="footer-links">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="terms.html">Terms</a>
+    <a href="contact.html">Contact</a>
+    <a href="#">Suggest a Feature</a>
+  </div>
+  <p>© 2026 CSVNow. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
