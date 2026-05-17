@@ -178,7 +178,9 @@ section h2 {
   padding: 16px; cursor: pointer;
   transition: border-color .2s, box-shadow .2s, transform .2s;
   display: flex; flex-direction: column; gap: 6px;
+  align-self: start;
 }
+
 .tool-card:hover {
   border-color: var(--teal);
   box-shadow: 0 4px 16px rgba(13,148,136,0.12);
@@ -199,6 +201,8 @@ section h2 {
 }
 .tool-badge.free { background: var(--teal-light); color: var(--teal-dark); }
 .tool-badge.pro { background: #fef3c7; color: #92400e; }
+
+
 
 /* ── FEATURES SECTION ── */
 .features-section { background: white; }
