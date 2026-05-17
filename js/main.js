@@ -765,3 +765,81 @@ async function convertToParquet() {
     alert('Parquet conversion failed. Please try again.');
   }
 }
+
+// ── CSV TO QBO/OFX ──
+function convertToQBO() {
+  if (!parsedData) { alert('Please upload a CSV file first.'); return; }
+
+  const rows = parsedData.data;
+  if (rows.length === 0) { alert('No data found in CSV.'); return; }
+
+  // Try to detect columns
+  const headers = Object.keys(rows[0]).map(h => h.toLowerCase().trim());
+  const dateCol = Object.keys(rows[0])[headers.findIndex(h => h.includes('date'))];
+  const amountCol = Object.keys(rows[0])[headers.findIndex(h => h.includes('amount') || h.includes('total') || h.includes('sum'))];
+  const descCol = Object.keys(rows[0])[headers.findIndex(h => h.includes('desc') || h.includes('name') || h.includes('memo') || h.includes('note'))];
+
+  if (!dateCol || !amountCol) {
+    alert('Could not detect date or amount columns. Make sure your CSV has columns named "date" and "amount".');
+    return;
+  }
+
+  const now = new Date();
+  const dtNow = now.toISOString().replace(/[-:T]/g, '').slice(0, 14);
+
+  let transactions = '';
+  rows.forEach((row, i) => {
+    const amount = parseFloat(row[amountCol]) || 0;
+    const desc = descCol ? row[descCol] : 'Transaction';
+    const rawDate = row[dateCol] || '';
+    const date = rawDate.replace(/[-/]/g, '').slice(0, 8);
+    transactions += `
+<STMTTRN>
+<TRNTYPE>${amount >= 0 ? 'CREDIT' : 'DEBIT'}
+<DTPOSTED>${date}
+<TRNAMT>${amount.toFixed(2)}
+<FITID>${dtNow}${i}
+<MEMO>${desc}
+</STMTTRN>`;
+  });
+
+  const ofx = `OFXHEADER:100
+DATA:OFXSGML
+VERSION:102
+SECURITY:NONE
+ENCODING:USASCII
+CHARSET:1252
+COMPRESSION:NONE
+OLDFILEUID:NONE
+NEWFILEUID:NONE
+
+<OFX>
+<SIGNONMSGSRSV1>
+<SONRS>
+<STATUS><CODE>0<SEVERITY>INFO</STATUS>
+<DTSERVER>${dtNow}
+<LANGUAGE>ENG
+</SONRS>
+</SIGNONMSGSRSV1>
+<BANKMSGSRSV1>
+<STMTTRNRS>
+<TRNUID>1
+<STMTRS>
+<CURDEF>USD
+<BANKACCTFROM>
+<BANKID>000000000
+<ACCTID>000000000
+<ACCTTYPE>CHECKING
+</BANKACCTFROM>
+<BANKTRANLIST>
+${transactions}
+</BANKTRANLIST>
+</STMTRS>
+</STMTTRNRS>
+</BANKMSGSRSV1>
+</OFX>`;
+
+  // Download both QBO and OFX
+  downloadFile(ofx, 'csvnow_export.qbo', 'application/x-qbo');
+  setTimeout(() => downloadFile(ofx, 'csvnow_export.ofx', 'application/x-ofx'), 500);
+}
