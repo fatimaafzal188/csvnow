@@ -74,55 +74,80 @@
   </section>
 
   <!-- UPLOAD AREA -->
-  <section class="upload-section" id="upload">
-    <div class="section-label">Start here</div>
-    <h2>Upload your CSV</h2>
-    <p class="section-sub">Drag and drop your file — everything happens instantly in your browser.</p>
+  <!-- UPLOAD AREA -->
+<section class="upload-section" id="upload">
+  <div class="section-label">Start here</div>
+  <h2>Upload your CSV</h2>
+  <p class="section-sub">Drag and drop your file — everything happens instantly in your browser.</p>
 
-    <div class="upload-box" id="upload-box">
-      <input type="file" id="csv-input" accept=".csv" hidden />
-      <div class="upload-icon">📂</div>
-      <p class="upload-title">Drop your CSV file here</p>
-      <p class="upload-hint">or</p>
-      <button class="upload-btn" onclick="document.getElementById('csv-input').click()">Browse file</button>
-      <p class="upload-limit">Free plan · up to 5 MB · .csv files only</p>
+  <div class="upload-layout">
+
+    <!-- LEFT TOOLS -->
+    <div class="side-tools">
+      <div class="side-tool-item" onclick="convertToExcel()"><span class="side-tool-icon">⇄</span> CSV to Excel</div>
+      <div class="side-tool-item" onclick="convertToJSON()"><span class="side-tool-icon">{ }</span> CSV to JSON</div>
+      <div class="side-tool-item" onclick="convertToSQL()"><span class="side-tool-icon">▦</span> CSV to SQL</div>
+      <div class="side-tool-item" onclick="convertToXML()"><span class="side-tool-icon">&lt;/&gt;</span> CSV to XML</div>
+      <div class="side-tool-item" onclick="convertToHTML()"><span class="side-tool-icon">◻</span> CSV to HTML</div>
+      <div class="side-tool-item" onclick="convertToMarkdown()"><span class="side-tool-icon">#</span> CSV to Markdown</div>
     </div>
 
-    <!-- FILE INFO BAR (hidden until file loaded) -->
-    <div class="file-info-bar" id="file-info-bar" style="display:none">
-      <div class="file-info-item">
-        <span class="file-info-label">File</span>
-        <span class="file-info-value" id="info-filename">—</span>
+    <!-- UPLOAD BOX -->
+    <div>
+      <div class="upload-box" id="upload-box">
+        <input type="file" id="csv-input" accept=".csv" hidden />
+        <div class="upload-icon">📂</div>
+        <p class="upload-title">Drop your CSV file here</p>
+        <p class="upload-hint">or</p>
+        <button class="upload-btn" onclick="document.getElementById('csv-input').click()">Browse file</button>
+        <p class="upload-limit">Free plan · up to 5 MB · .csv files only</p>
       </div>
-      <div class="file-info-divider"></div>
-      <div class="file-info-item">
-        <span class="file-info-label">Size</span>
-        <span class="file-info-value" id="info-size">—</span>
+
+      <div class="file-info-bar" id="file-info-bar" style="display:none">
+        <div class="file-info-item">
+          <span class="file-info-label">File</span>
+          <span class="file-info-value" id="info-filename">—</span>
+        </div>
+        <div class="file-info-divider"></div>
+        <div class="file-info-item">
+          <span class="file-info-label">Size</span>
+          <span class="file-info-value" id="info-size">—</span>
+        </div>
+        <div class="file-info-divider"></div>
+        <div class="file-info-item">
+          <span class="file-info-label">Rows</span>
+          <span class="file-info-value" id="info-rows">—</span>
+        </div>
+        <div class="file-info-divider"></div>
+        <div class="file-info-item">
+          <span class="file-info-label">Columns</span>
+          <span class="file-info-value" id="info-cols">—</span>
+        </div>
+        <button class="reset-btn" onclick="resetUpload()">✕ Remove file</button>
       </div>
-      <div class="file-info-divider"></div>
-      <div class="file-info-item">
-        <span class="file-info-label">Rows</span>
-        <span class="file-info-value" id="info-rows">—</span>
+
+      <div class="preview-wrap" id="preview-wrap" style="display:none">
+        <div class="preview-header">
+          <span class="preview-title">Preview — first 10 rows</span>
+        </div>
+        <div class="table-scroll">
+          <table class="preview-table" id="preview-table"></table>
+        </div>
       </div>
-      <div class="file-info-divider"></div>
-      <div class="file-info-item">
-        <span class="file-info-label">Columns</span>
-        <span class="file-info-value" id="info-cols">—</span>
-      </div>
-      <button class="reset-btn" onclick="resetUpload()">✕ Remove file</button>
     </div>
 
-    <!-- PREVIEW TABLE (hidden until file loaded) -->
-    <div class="preview-wrap" id="preview-wrap" style="display:none">
-      <div class="preview-header">
-        <span class="preview-title">Preview — first 10 rows</span>
-      </div>
-      <div class="table-scroll">
-        <table class="preview-table" id="preview-table"></table>
-      </div>
+    <!-- RIGHT TOOLS -->
+    <div class="side-tools">
+      <div class="side-tool-item" onclick="removeDuplicates()"><span class="side-tool-icon">⊘</span> Remove Dupes</div>
+      <div class="side-tool-item" onclick="trimWhitespace()"><span class="side-tool-icon">␣</span> Trim Whitespace</div>
+      <div class="side-tool-item" onclick="convertToParquet()"><span class="side-tool-icon">⬡</span> CSV to Parquet</div>
+      <div class="side-tool-item" onclick="convertToQBO()"><span class="side-tool-icon">$</span> CSV to QBO</div>
+      <div class="side-tool-item" onclick="csvPulse()"><span class="side-tool-icon">⚡</span> CSV Pulse</div>
+      <div class="side-tool-item" onclick="compatibilityChecker()"><span class="side-tool-icon">✔</span> Compatibility</div>
     </div>
 
-  </section>
+  </div>
+</section>
 
 <!-- DOWNLOAD BAR -->
   <div class="download-bar" id="download-bar" style="display:none">

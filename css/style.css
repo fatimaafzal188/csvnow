@@ -398,6 +398,58 @@ footer .nav-logo span { color: white; }
 .upload-btn:hover { background: var(--teal-dark); }
 .upload-limit { font-size: 12px; color: var(--text3); }
 
+/* ── UPLOAD WITH SIDE TOOLS ── */
+.upload-layout {
+  display: grid;
+  grid-template-columns: 200px 1fr 200px;
+  gap: 2rem;
+  align-items: center;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.side-tools {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.side-tool-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem 0.9rem;
+  background: var(--bg2);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.side-tool-item:hover {
+  border-color: var(--teal);
+  background: var(--teal-xlight);
+}
+
+.side-tool-icon {
+  font-size: 1rem;
+}
+
+@media(max-width: 768px) {
+  .upload-layout {
+    grid-template-columns: 1fr;
+  }
+  .side-tools {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+}
+
 /* ── FILE INFO BAR ── */
 .file-info-bar {
   display: flex; align-items: center;
