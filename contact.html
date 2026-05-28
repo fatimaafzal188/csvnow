@@ -132,7 +132,7 @@
           <div class="info-icon">✉</div>
           <div class="info-text">
             <p>Email us directly</p>
-            <p><a href="mailto:YOUR_EMAIL_HERE">YOUR_EMAIL_HERE</a></p>
+            <p><a href="mailto:SUPPORTCSVNOW@GMAIL.COM">SUPPORTCSVNOW@GMAIL.COM</a></p>
           </div>
         </div>
         <div class="info-item">
@@ -154,7 +154,7 @@
       <div class="card" style="padding:1.5rem">
         <p style="font-size:0.8rem;color:var(--muted);margin-bottom:0.5rem">Have a tool idea?</p>
         <p style="font-size:0.9rem;color:#bbb;margin-bottom:1rem">We love suggestions. Tell us what CSV tool you wish existed.</p>
-        <a href="mailto:YOUR_EMAIL_HERE?subject=Feature Suggestion" style="display:inline-block;background:var(--accent-dim);color:var(--accent);border:1px solid #22c55e33;font-size:0.8rem;font-weight:500;padding:0.5rem 1rem;border-radius:6px">✦ Suggest a feature →</a>
+        <a href="mailto:SUPPORTCSVNOW@GMAIL.COM?subject=Feature Suggestion" style="display:inline-block;background:var(--accent-dim);color:var(--accent);border:1px solid #22c55e33;font-size:0.8rem;font-weight:500;padding:0.5rem 1rem;border-radius:6px">✦ Suggest a feature →</a>
       </div>
     </div>
 
@@ -209,7 +209,7 @@ function handleSubmit(){
   const topic=document.getElementById('topic').value;
   const message=document.getElementById('message').value.trim();
   if(!name||!email||!topic||!message){alert('Please fill in all fields.');return;}
-  const mailto='mailto:YOUR_EMAIL_HERE?subject='+encodeURIComponent('[CSVNow] '+topic)+'&body='+encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
+  const mailto='mailto:SUPPORTCSVNOW@GMAIL.COM?subject='+encodeURIComponent('[CSVNow] '+topic)+'&body='+encodeURIComponent('Name: '+name+'\nEmail: '+email+'\n\n'+message);
   window.location.href=mailto;
   document.getElementById('success').style.display='block';
 }
