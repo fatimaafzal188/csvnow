@@ -212,6 +212,7 @@ function convertToExcel() {
 
 // ── CSV TO JSON ──
 function convertToJSON() {
+  logToolUsage('CSV to JSON');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
 
   const json = JSON.stringify(parsedData.data, null, 2);
@@ -249,6 +250,7 @@ function hideDownloadBar() {
 }
 // ── CSV TO SQL ──
 function convertToSQL() {
+  logToolUsage('CSV to SQL');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   const rows = parsedData.data;
@@ -265,6 +267,7 @@ function convertToSQL() {
 
 // ── CSV TO XML ──
 function convertToXML() {
+  logToolUsage('CSV to XML');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   const rows = parsedData.data;
@@ -282,6 +285,7 @@ function convertToXML() {
 
 // ── CSV TO HTML ──
 function convertToHTML() {
+  logToolUsage('CSV to HTML');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   const rows = parsedData.data;
@@ -307,6 +311,7 @@ function convertToHTML() {
 
 // ── CSV TO MARKDOWN ──
 function convertToMarkdown() {
+  logToolUsage('CSV to Markdown');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   const rows = parsedData.data;
@@ -320,6 +325,7 @@ function convertToMarkdown() {
 
 // ── CSV TO YAML ──
 function convertToYAML() {
+  logToolUsage('CSV to YAML');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   const rows = parsedData.data;
@@ -360,6 +366,7 @@ function convertToPDF() {
 
 // ── EXCEL TO CSV ──
 function convertExcelToCSV() {
+  logToolUsage('Excel to CSV');
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = '.xlsx,.xls';
@@ -379,6 +386,7 @@ function convertExcelToCSV() {
 
 // ── JSON TO CSV ──
 function convertJSONToCSV() {
+  logToolUsage('JSON to CSV');
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = '.json';
@@ -401,6 +409,7 @@ function convertJSONToCSV() {
 
 // ── MERGE CSVs ──
 function mergeCSVs() {
+  logToolUsage('Merge CSVs');
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = '.csv';
@@ -430,6 +439,7 @@ function mergeCSVs() {
 }
 // ── REMOVE DUPLICATES ──
 function removeDuplicates() {
+  logToolUsage('Remove Duplicates');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   const seen = new Set();
@@ -448,6 +458,7 @@ function removeDuplicates() {
 
 // ── TRIM WHITESPACE ──
 function trimWhitespace() {
+  logToolUsage('Trim Whitespace');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   parsedData.data = parsedData.data.map(row => {
@@ -462,6 +473,7 @@ function trimWhitespace() {
 
 // ── FILL EMPTY CELLS ──
 function fillEmptyCells() {
+  logToolUsage('Fill Empty Cells');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fillValue = prompt('What value should empty cells be filled with?', 'N/A');
   if (fillValue === null) return;
@@ -486,6 +498,7 @@ function fillEmptyCells() {
 
 // ── FIX ENCODING ──
 function fixEncoding() {
+  logToolUsage('Fix Encoding');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const fields = parsedData.meta.fields;
   parsedData.data = parsedData.data.map(row => {
@@ -513,6 +526,7 @@ function fixEncoding() {
 
 // ── STANDARDISE CASE ──
 function standardiseCase() {
+  logToolUsage('Standardise Case');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const choice = prompt('Choose case:\n1 = UPPERCASE\n2 = lowercase\n3 = Title Case\n\nType 1, 2 or 3:');
   if (!choice) return;
@@ -534,6 +548,7 @@ function standardiseCase() {
 }
 // ── QUALITY SCORE ──
 function qualityScore() {
+  logToolUsage('Quality Score');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
 
   const fields = parsedData.meta.fields;
@@ -608,6 +623,7 @@ function qualityScore() {
 }
 // ── CSV PULSE ──
 async function csvPulse() {
+  logToolUsage('CSV Pulse');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
 
   const fields = parsedData.meta.fields;
@@ -636,6 +652,7 @@ async function csvPulse() {
 
 // ── COMPATIBILITY CHECKER ──
 function compatibilityChecker() {
+  logToolUsage('Compatibility Checker');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
 
   const fields = parsedData.meta.fields;
@@ -695,6 +712,7 @@ function compatibilityChecker() {
 }
 // ── SPLIT CSV ──
 function splitCSV() {
+  logToolUsage('Split CSV');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
 
   const fields = parsedData.meta.fields;
@@ -749,6 +767,7 @@ async function proGate() {
 
 
 async function convertToParquet() {
+  logToolUsage('CSV to Parquet');
   if (!parsedData) {
     alert('Please upload a CSV file first.');
     return;
@@ -777,6 +796,7 @@ async function convertToParquet() {
 
 // ── CSV TO QBO/OFX ──
 function convertToQBO() {
+  logToolUsage('CSV to QBO');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
 
   const rows = parsedData.data;
