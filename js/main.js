@@ -1,3 +1,11 @@
+async function logToolUsage(toolName) {
+  try {
+    await _supabase.from('tool_usage').insert({ tool_name: toolName });
+  } catch (err) {
+    console.log('Logging failed:', err);
+  }
+}
+
 
 // ── AUTH CHECK ──
 async function checkProAccess() {
@@ -189,6 +197,7 @@ function formatSize(bytes) {
 }
 // ── CSV TO EXCEL ──
 function convertToExcel() {
+  logToolUsage('CSV to Excel');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
   const ws = XLSX.utils.json_to_sheet(parsedData.data);
   const wb = XLSX.utils.book_new();
