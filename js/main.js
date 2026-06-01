@@ -475,15 +475,49 @@ function trimWhitespace() {
 function fillEmptyCells() {
   logToolUsage('Fill Empty Cells');
   if (!parsedData) { alert('Please upload a CSV file first.'); return; }
-  const fillValue = prompt('What value should empty cells be filled with?', 'N/A');
-  if (fillValue === null) return;
+  document.getElementById('fill-modal').style.display = 'flex';
+}
+
+function toggleCustomInput() {
+  const method = document.getElementById('fill-method').value;
+  const customInput = document.getElementById('fill-custom-value');
+  customInput.style.display = method === 'custom' ? 'block' : 'none';
+}
+
+function applyFillEmptyCells() {
+  const method = document.getElementById('fill-method').value;
+  const customValue = document.getElementById('fill-custom-value').value;
   const fields = parsedData.meta.fields;
   let filled = 0;
+
+  // Calculate column stats if needed
+  const colStats = {};
+  if (['mean', 'median', 'mode'].includes(method)) {
+    fields.forEach(f => {
+      const values = parsedData.data.map(r => r[f]).filter(v => v !== '' && v !== null && v !== undefined);
+      const nums = values.map(Number).filter(n => !isNaN(n));
+      if (method === 'mean') {
+        colStats[f] = nums.length ? (nums.reduce((a, b) => a + b, 0) / nums.length).toFixed(2) : '';
+      } else if (method === 'median') {
+        const sorted = [...nums].sort((a, b) => a - b);
+        colStats[f] = sorted.length ? sorted[Math.floor(sorted.length / 2)] : '';
+      } else if (method === 'mode') {
+        const freq = {};
+        values.forEach(v => freq[v] = (freq[v] || 0) + 1);
+        colStats[f] = Object.keys(freq).sort((a, b) => freq[b] - freq[a])[0] || '';
+      }
+    });
+  }
+
   parsedData.data = parsedData.data.map(row => {
     const newRow = {};
     fields.forEach(f => {
       if (row[f] === '' || row[f] === null || row[f] === undefined) {
-        newRow[f] = fillValue;
+        if (method === 'custom') newRow[f] = customValue;
+        else if (method === 'na') newRow[f] = 'N/A';
+        else if (method === 'zero') newRow[f] = '0';
+        else if (method === 'empty') newRow[f] = '';
+        else newRow[f] = colStats[f] || '';
         filled++;
       } else {
         newRow[f] = row[f];
@@ -491,8 +525,10 @@ function fillEmptyCells() {
     });
     return newRow;
   });
+
+  document.getElementById('fill-modal').style.display = 'none';
   showPreview(parsedData);
-  alert(`Done! Filled ${filled} empty cell(s) with "${fillValue}".`);
+  alert(`Done! Filled ${filled} empty cell(s).`);
   downloadFile(Papa.unparse({ fields, data: parsedData.data }), 'csvnow_filled.csv', 'text/csv');
 }
 
