@@ -365,6 +365,7 @@
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  
   <!-- SUGGESTION BUTTON -->
   <div class="suggest-btn" onclick="openSuggest()">💡</div>
 
@@ -380,6 +381,31 @@
       <button class="suggest-submit" onclick="submitSuggestion()">Send Suggestion</button>
     </div>
   </div>
+
+  <!-- FILL EMPTY CELLS MODAL -->
+  <div class="suggest-modal" id="fill-modal">
+    <div class="suggest-box">
+      <div class="suggest-header">
+        <span>Fill Empty Cells</span>
+        <button onclick="document.getElementById('fill-modal').style.display='none'">✕</button>
+      </div>
+      <p class="suggest-sub">How should empty cells be filled?</p>
+      <select id="fill-method" style="width:100%;padding:10px;margin-bottom:12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);font-family:inherit;font-size:14px;" onchange="toggleCustomInput()">
+        <option value="custom">Custom value</option>
+        <option value="na">N/A</option>
+        <option value="zero">0 (zero)</option>
+        <option value="mean">Mean (average of column)</option>
+        <option value="median">Median of column</option>
+        <option value="mode">Most frequent value</option>
+        <option value="empty">Leave empty</option>
+      </select>
+      <input id="fill-custom-value" type="text" placeholder="Enter custom value..." style="width:100%;padding:10px;margin-bottom:12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);font-family:inherit;font-size:14px;" />
+      <button class="suggest-submit" onclick="applyFillEmptyCells()">Apply</button>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <script src="js/main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
@@ -398,30 +424,6 @@ _supabase.auth.getSession().then(({ data: { session } }) => {
     };
   }
 });
-
-<!-- FILL EMPTY CELLS MODAL -->
-<div class="suggest-modal" id="fill-modal">
-  <div class="suggest-box">
-    <div class="suggest-header">
-      <span>Fill Empty Cells</span>
-      <button onclick="document.getElementById('fill-modal').style.display='none'">✕</button>
-    </div>
-    <p class="suggest-sub">How should empty cells be filled?</p>
-    <select id="fill-method" style="width:100%;padding:10px;margin-bottom:12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);font-family:inherit;font-size:14px;" onchange="toggleCustomInput()">
-      <option value="custom">Custom value</option>
-      <option value="na">N/A</option>
-      <option value="zero">0 (zero)</option>
-      <option value="mean">Mean (average of column)</option>
-      <option value="median">Median of column</option>
-      <option value="mode">Most frequent value</option>
-      <option value="empty">Leave empty</option>
-    </select>
-    <input id="fill-custom-value" type="text" placeholder="Enter custom value..." style="width:100%;padding:10px;margin-bottom:12px;border-radius:8px;border:1px solid var(--border2);background:var(--bg2);font-family:inherit;font-size:14px;" />
-    <button class="suggest-submit" onclick="applyFillEmptyCells()">Apply</button>
-  </div>
-</div>
-
 </script>
 </body>
 </html>
-
